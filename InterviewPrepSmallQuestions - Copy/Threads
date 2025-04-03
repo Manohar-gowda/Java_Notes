@@ -1,0 +1,121 @@
+ 1. Difference between process and thread?
+    * Process: is an independent program in execution, with its own memory space, resources, and state.
+     Processes are isolated from each other, and communication(inter-process Communication or IPC) between
+       them is slower and more resource-intensive.
+
+    * Thread: is a subset of a process. Multiple threads within the same process share the same memory
+        space and resources but have their own execution stack.
+      Threads are lighter and faster to create than processes, and communication between threads is faster since
+         they share memory.
+
+ 2. What is multitasking?
+    The ability of a system to execute multiple tasks or processes simultaneously.
+
+ 3. List Java API that supports threads?
+     Java provides several APIs for thread management in the java.lang and java.util.concurrent packages.
+     * Thread class: java.lang.Thread (e.g., start(), run(), sleep(), join()).
+     * Runnable Interface: java.lang.Runnable (defines the run() method)
+     * Executor Framework: java.util.concurrent.Executor (e.g., ExecutorService, Executors for thread pools).
+     * ThreadPoolExecutor: java.util.concurrent.ThreadPoolExecutor (manages a pool of threads).
+     * Future and Callable: java.util.concurrent.Future and java.util.concurrent.Callable (for tasks that return results).
+     * Locks: java.util.concurrent.locks.Lock (e.g., ReentrantLock for synchronization).
+     * Concurrent Collections: java.util.concurrent (e.g., ConcurrentHashMAp, BlockingQueue).
+     * Synchronizers: java.util.concurrent (e.g., Semaphore, CountDownLatch, CyclicBarrier).
+
+ 4. Importance of thread scheduler:
+          * Thread Execution order.
+          * Resource utilization.
+          * Fairness: It prevents thread starvation
+          * Priority handling.
+
+ 5. We cannot restart a dead thread in Java.   (IllegalThreadStateException)
+
+ 6. We cannot restart a thread that has already been started in Java.  (IllegalThreadStateException)
+
+ 7. What happens if we don't override run() method?
+      * Extending Thread: The default run() method in the Thread class is empty, so the thread will start, execute the
+          empty run() method, and terminate immediately without performing any useful work.
+
+      * Implementing Runnable: If the Runnable object passed to the Thread constructor doesn't implement run(), the code
+          won't compile because Runnable is an interface requiring the run() method to be implemented. Overriding run()
+            is essential to define the thread's task.
+
+ 8. We can overload run() method in thread class, but it won't be called by the thread's execution mechanisms. The thread
+     scheduler only calls the public void run() method.
+
+ 9. We cannot use synchronized block for primitives.
+
+ 10. Explain different types of thread priorities?
+     1. Thread.MIN_PRIORITY (1): The lowest priority a thread can have.
+     2. Thread.NORM_PRIORITY (5): The default priority for a thread.
+     3. Thread.MAX_PRIORITY (10): The highest priority a thread can have.
+
+     We can set any value between 1 and 10 using setPriority()
+     Ex:
+     Thread t = new Thread();
+     t.setPriority(Thread.MAX_PRIORITY); // set to 10
+
+ 11. How to change the priority of thread or how to set priority of thread?
+      We can change a thread's priority using the setPriority(int) method, and retrieve it with getPriority().
+      The priority must be between 1 and 10.
+
+      Thread t = new Thread();
+      t.setPriority(8);
+      sout("Priority: " + t.getPriority());
+
+ 12. If two threads have same priority which thread will be executed first?
+      In this situation, the thread scheduler decides which one to execute first based on the scheduling algorithm, which is
+       platform-dependent.
+
+       * Round-Robin: Threads take turns in a time-sliced manner.
+       * First-Come, First-Served.
+
+ 13. What all methods are used to prevent thread execution?
+      1. Thread.sleep(long millis): pauses for a specified time.
+      2. Thread.yield(): causes the thread to temporarily pause and allow other threads of the same priority to run.
+      3. Thread.join(): makes the calling thread wait for the target thread to complete.
+      4. Object.wait(): causes the thread to wait until another thread calls notify() or notifyAll() on the same object.
+      5. LockSupport.park(): Suspends the thread until unpark() is called (used in java.util.concurrent).
+
+ 14. Explain yield() method in thread class?
+     The Thread.yield() method causes the currently executing thread to pause and give other threads of the same or higher
+       priority a chance to run.
+
+       * It moves the thread from "Running" to "Runnable" state.
+
+ 15. Explain the importance of join() method?
+     * Coordination
+     * Data dependency
+     * Order of execution
+
+ 16. Calling Thread.sleep() on thread that holds a lock does not release the lock.
+    The thread retains the lock while sleeping.
+    To release the lock, you'd need to use wait() instead of sleep().
+
+ 17. Explain about interrupt() method of thread class?
+     The interrupt() method in the Thread class used to interrupt a thread, typically to signal that it should stop what it's
+        doing.
+
+ 18. What are daemon threads?
+    - Low-priority threads that run in the background to perform tasks such as garbage collection, monitoring, or other
+      housekeeping activities.
+    - The key characteristics of a daemon thread is that the Java Virtual Machine (JVM) can exit even if daemon threads
+        are still running, as long as all user threads have completed their execution.
+
+    * Create daemon thread: by calling the setDaemon(true) method on a Thread object before starting the thread.
+       Thread daemonThread = new Thread(() -> {
+          while(true) {
+            sout("Daemon thread is running...");
+            try {
+              Thread.sleep(1000);
+            }catch(InterruptedException e) {
+              e.printStackTrace();
+            }
+          }
+       });
+       daemonThread.setDaemon(true);
+       daemonThread.start();
+
+    - Daemon threads cannot be changed to non-daemon (or vice-versa) after the thread has started, attempting to do so
+        will throw an IllegalThreadStateException.
+    - We cannot make main() thread as daemon thread.

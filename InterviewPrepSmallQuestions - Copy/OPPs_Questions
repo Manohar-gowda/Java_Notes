@@ -1,0 +1,74 @@
+1. Can overloaded methods be override too?
+      Yes, overloaded methods can be overridden. Overloading and overriding are independent concepts. A method can
+      be overloaded in a class, and any of those overloaded methods can be overridden in a subclass if they match
+      the signature of a method in the superclass.
+
+   2. Is it possible to override the main() method?
+       No, the main() method cannot be overridden because it's static. Static methods belong to the class, not
+         an instance, and overriding applies to instance methods. However, we can overload the main() method by
+          defining another main() with a different parameter list, but the JVM will only call the standard public
+           static void main(String[] args)
+
+   3. How to invoke a super class's version of an Overridden method?
+        using super()
+        class Parent {
+           void display() {
+              sout("Parent display");
+           }
+        }
+
+        class Child extends Parent {
+           @Override
+           void display() {
+             super.display(); // Calls Parent's display
+             sout("Child display");
+           }
+        }
+
+   4. How do you prevent a method from being overridden?
+        To prevent a method from being overridden in Java, we can use the final keyword.
+         A final method cannot be overridden by a subclass.
+
+   5. Can we instantiate an interface?
+        No, we cannot instantiate an interface in Java because it is abstract by nature. An interface does not provide
+          implementations for its abstract methods(unless they are default or static), so it cannot be instantiated directly.
+
+   6. Can we create an object for an interface?
+      No, we cannot create an object of an interface directly because interfaces cannot be instantiated.
+       However we can create an object of a class that implements the interface and use the interface type as reference to that
+         object.
+
+   7. Do interfaces have member variables?
+      Yes, interfaces can have member variables, but they are implicitly public, static, and final - meaning they are constants.
+
+   8. Explain instanceOf operator?
+      used to test whether an object is an instance of a specific class, subclass, or interface. It returns true if the object
+        is an instance of the specified type, and false otherwise.
+
+   9. What does null mean in java?
+       Represents a absence of a value.
+        * null is the default value for reference types.
+        * Attempting to call a method on a null reference results in a NullPointerException .
+
+   10. Can we have multiple classes in a single file?
+       Yes, we can have multiple classes in a single file, but only one class can be public, and its name must match the
+         name of the file.
+
+   11. What are packages?
+       It is a namespace that organizes a set of related classes and interfaces. Packages help in avoiding name conflicts,
+         improving code organization, and providing access control.
+
+   12. The package statement must be the first non-comment line in a java source file. The import statements must come
+       after the package statement.
+
+   13.
+    - Autoboxing: The automatic conversion of a primitive type to its corresponding wrapper class object
+        e.g., int to Integer
+        int pri = 10;
+        Integer wrap = pri;
+        sout(wrap);
+    - Auto-unboxing: The automatic conversion of a wrapper class object to its corresponding primitive type.
+        e.g., Integer to int
+        Integer wrap1 = new Integer(20);
+        int pri1 = wrap1;
+        sout(pri1);

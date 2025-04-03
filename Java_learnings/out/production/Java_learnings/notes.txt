@@ -1,0 +1,2 @@
+Complete line of text 
+ There has to be next line.

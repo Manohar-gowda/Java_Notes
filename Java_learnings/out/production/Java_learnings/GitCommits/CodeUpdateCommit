@@ -1,0 +1,15 @@
+1. git add .
+
+2. git commit -m "commit message"
+
+3. Pull latest changes from the repository.
+
+   git pull origin <branch name>
+      <branch name> ex., (main or master)
+
+4. Push the changes to the repository.
+
+   git push origin <branch name>
+
+
+

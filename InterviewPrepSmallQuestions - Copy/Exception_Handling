@@ -1,0 +1,16 @@
+1. Can we have try block without catch block?
+    Yes, but it must be followed by a finally block.
+
+2. The default Exception handling:
+    * Print the exception's stack trace.
+    * Terminate the program.
+
+3. We can rethrow the same exception from catch handler using the throw keyword. This is useful when we want to perform some
+    action in the catch block but still propagates the exception to a higher-level handler.
+
+       try {
+          int res = 10 / 0;
+       } catch(ArithmeticException e) {
+          sout("Caught in the first handler: " + e.getMessage());
+          throw e;   // Rethrow the same exception
+       }

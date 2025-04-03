@@ -1,0 +1,149 @@
+* Thread: is a small lightweight sub process or sub-task.   (java.lang)
+   - When we want to perform a task, it is divided into multiple subtask and that single subtask is called thread.
+* Multithreading:
+   - The process of executing multiple threads at a same time.
+
+   * Properties of thread:
+     1. Id: used to identify a thread uniquely.
+     2. Thread Name: used to identify a thread easily.
+     3. Thread Priority: used to decide the order of execution of specified thread.
+         Thread priority ranges from 1 to 10:
+           1 -> is least priority.
+           5 -> default priority.
+           10 -> highest priority.
+     - All three id, name and priority are private data member in thread class, Therefore we can access it using get()
+        and set().
+
+   * Important Methods:
+       1. getId()
+       2. getName()
+       3. setName()
+       4. getPriority()
+       5. setPriority()
+       6. start()
+       7. run()
+       8. sleep()
+       9. stop()
+       10.currentThread()
+
+   * Constructor present in thread class:
+       Thread()
+       Thread(String name)
+       Thread(Runnable obj)
+       Thread(Runnable obj, String name)
+
+   * Pre-defined threads:
+      It has 3 predefined threads:
+        1. main thread:
+           The execution of a java program always start from main thread.
+
+        2. Thread Scheduler:
+           It is used to manage all the threads.
+
+        3. Garbage Collector:
+           It is used to delete all the de-referenced objects or unused object from the memory.
+
+   * User defined thread:
+      2 ways:
+        1. By extending the Thread class:
+           Rules:
+             - Class should extend thread class.
+             - Override run method by specifying the task which has to be performed by the thread.
+             - Invoke start() method.
+
+             class Sim extends Thread {
+                 public void run() {
+                     for(int i=0;i<=5;i++) {
+                         System.out.println("I: " + i);
+                         try {
+                             Thread.sleep(2000);
+                         }catch (Exception e) {
+                             e.printStackTrace();
+                         }
+                     }
+                 }
+             }
+
+             class card extends Thread {
+                 public void run() {
+                     for(int j=0;j<=10;j++) {
+                         System.out.println("J: " + j);
+                         try {
+                             Thread.sleep(2000);
+                         }catch (Exception e) {
+                             e.printStackTrace();
+                         }
+                     }
+                 }
+             }
+
+             public class Main{
+                public static void main(String[] args) {
+                        Sim s = new Sim();
+                        s.setName("SimT");
+                        s.start();
+
+                        card c = new card();
+                        c.setName("CardT");
+                        c.start();
+
+                    }
+             }
+
+           - We call or invoke start() and run() because when we invoke run(), the execution happens on the already existing
+               stack where in a new thread or a new path of execution is not created, we invoke start() to create a new stack
+               and call run() on the newly created stack.
+
+        2. By implementing the Runnable interface.
+           Rules:
+              - Class should implement Runnable interface.
+              - Override run() by specifying the task that has to be performed by the thread.
+              - Convert Runnable type object to Thread type.
+              - invoke start()
+
+           class Main{
+               public static void main(String[] args) {
+                   Sim s = new Sim();
+                   Thread t1 = new Thread(s);
+                   t1.setName("SimT");
+                   t1.start();
+
+                   Card c = new Card();
+                   Thread t2 = new Thread(c);
+                   t2.setName("CardT");
+                   t2.start();
+               }
+           }
+
+           class Sim implements Runnable{
+               @Override
+               public void run() {
+                   System.out.println("Sim ejected....");
+               }
+           }
+
+           class Card implements Runnable{
+               @Override
+               public void run() {
+                   System.out.println("Card is for memory....");
+               }
+           }
+
+      * Thread lifecycle:
+        1. new: Thread is created.
+        2. runnable: Ready for execution.
+        3. running: Thread is executed.
+        4. dead: Thread id terminated.
+
+
+           start()                              run()                          stop()
+     new --------------------> runnable ----------------------> running ---------------------> dead
+                                  |                               |
+                                  |-------------------------------|
+                                           blocked state
+                                              sleep()
+
+      - We cannot call start() multiple time on a single thread, because once a thread is created after execution
+           it is automatically terminated.
+
+      -
