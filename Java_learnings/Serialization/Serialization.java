@@ -39,6 +39,8 @@ package Serialization;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 
 public class Serialization {
     public static void main(String[] args) throws Exception{
@@ -60,4 +62,15 @@ class Employee1 implements Serializable {
         this.id = id;
     }
 
+}
+
+public class DeserializeExample {
+    public static void main(String[] args) throws Exception {
+        FileInputStream fis = new FileInputStream("Note-Book.txt");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        Employee1 p = (Employee1) ois.readObject();
+        ois.close();
+        fis.close();
+        System.out.println("Name: " + p.name + ", Salary: " + p.salary);
+    }
 }

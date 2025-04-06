@@ -81,3 +81,22 @@ class Signatures {
 }
 
 
+// Inheritance Example (Runtime polymorphism) ------------------------
+class Calculator1 {
+    public void multiplication(int num1, int num2) {
+        System.out.println(num1 * num2);
+    }
+
+    public void Division(int num1, int num2) {
+        System.out.println(num1 / num2);
+    }
+}
+
+class Multiplication extends Calculator1{
+    @Override
+    public void multiplication(int num1, int num2) {
+        System.out.println(num1 * num2 * (4));
+    }
+}
+
+
